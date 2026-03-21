@@ -21,6 +21,24 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 
 var app = builder.Build();
 
+var retries = 10;
+while (retries > 0)
+{
+    try
+    {
+        using var scope = app.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        dbContext.Database.Migrate();
+        break;
+    }
+    catch (Exception Ex)
+    {
+        Console.WriteLine(Ex.ToString());
+        retries--;
+        Thread.Sleep(5000);
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

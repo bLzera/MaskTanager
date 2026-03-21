@@ -23,6 +23,7 @@ public class TaskService : ITaskService
         return await _context.Tasks.Select(
             t => new TaskDTO
             {
+                Id = t.Id,
                 Title = t.Title,
                 Description = t.Description,
                 Status = t.Status
@@ -40,6 +41,7 @@ public class TaskService : ITaskService
 
         return new TaskDTO
         {
+            Id = task.Id,
             Title = task.Title,
             Description = task.Description,
             Status = task.Status
@@ -98,6 +100,7 @@ public class TaskService : ITaskService
             Id = task.Id,
             Title = task.Title,
             Description = task.Description,
+            Status = task.Status,
         };
     }
 
