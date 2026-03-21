@@ -18,27 +18,37 @@ public class TaskService : ITaskService
         _context = context;
     }
 
-    public Task<List<TaskDTO>> GetTasks(int? id = null)
+    public async Task<List<TaskDTO>> GetTasks(int? id = null)
     {
-        var qt = _context.Tasks.AsQueryable();
-
-        if (id.HasValue)
-        {
-            qt = qt.Where(t => t.Id == id);
-        }
-        
-        return qt.Select(
-                t => new TaskDTO
-                {
-                    Id = t.Id,
-                    Title = t.Title,
-                    Description = t.Description, 
-                }).ToListAsync();
+        return await _context.Tasks.Select(
+            t => new TaskDTO
+            {
+                Title = t.Title,
+                Description = t.Description,
+                Status = t.Status
+            }).ToListAsync();
     }
     
-    public async Task<TaskDTO> EditTask(int id, string? titulo = null, string? descricao = null, Status? status = null)
+    public async Task<TaskDTO?> GetTaskById(int id)
     {
         var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
+
+        if (task == null)
+        {
+            return null;
+        }
+
+        return new TaskDTO
+        {
+            Title = task.Title,
+            Description = task.Description,
+            Status = task.Status
+        };
+    }
+
+    public async Task<TaskDTO?> EditTask(int id, string? titulo = null, string? descricao = null, Status? status = null)
+    {
+        var task = await _context.Tasks.FindAsync(id);
 
         if (task == null)
         {
@@ -73,7 +83,11 @@ public class TaskService : ITaskService
 
     public async Task<TaskDTO> AddTask(string titulo, string? descricao = null)
     {
-        var task = new MaskTanager.Models.Task(titulo, descricao);
+        var task = new MaskTanager.Models.Task
+        {
+            Title = titulo,
+            Description = descricao,
+        };
 
         await _context.Tasks.AddAsync(task);
         

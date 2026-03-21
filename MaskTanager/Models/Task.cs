@@ -3,11 +3,8 @@ namespace MaskTanager.Models;
 
 public class Task
 {
-    public Task(string titulo, string descricao)
-    {
-        Title = titulo;
-        Description = descricao;
-    }
+    public Task()
+    {}
     
     public int Id { get; set; }
     public string? Title { get; set; }

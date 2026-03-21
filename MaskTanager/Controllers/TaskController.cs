@@ -15,17 +15,25 @@ public class TaskController : ControllerBase
         _taskService = taskService;
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<TaskDTO>> GetTasks(int? id)
+    [HttpGet]
+    public async Task<ActionResult<TaskDTO>> GetTasks()
     {
-        var tasks = await _taskService.GetTasks(id);
+        var tasks = await _taskService.GetTasks();
         return Ok(tasks);
     }
 
-    [HttpPost]
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TaskDTO>> GetTaskById(int id)
+    {
+        var task = await _taskService.GetTaskById(id);
+        
+        return task is not null ? Ok(task) : NotFound();
+    }
+
+    [HttpPost("edit")]
     public async Task<ActionResult<TaskDTO>> EditTask([FromBody] EditTaskDTO editTaskDto)
     {
-        var task = _taskService.EditTask(
+        var task = await _taskService.EditTask(
             editTaskDto.Id, 
             editTaskDto.Title, 
             editTaskDto.Description, 
@@ -37,5 +45,29 @@ public class TaskController : ControllerBase
         }
 
         return NotFound("Task not found");
-    } 
+    }
+
+    [HttpPost("delete")]
+    public async Task<ActionResult<TaskDTO>> DeleteTask([FromBody] DeleteTaskDTO deleteTaskDto)
+    {
+        var task = await _taskService.DeleteTask(deleteTaskDto.Id);
+
+        if (task)
+        {
+            return Ok();
+        }
+        
+        return NotFound("Não consegui deletar a task >.<");
+    }
+
+    [HttpPost("add")]
+    public async Task<ActionResult<TaskDTO>> AddTask([FromBody] AddTaskDTO addTaskDto)
+    {
+        var task = await _taskService.AddTask(
+            addTaskDto.Title,
+            addTaskDto.Description
+            );
+
+        return Ok(task);
+    }
 }
