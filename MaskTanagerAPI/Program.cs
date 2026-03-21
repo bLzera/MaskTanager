@@ -1,4 +1,5 @@
 using MaskTanager.Data;
+using MaskTanager.Models;
 using MaskTanager.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,30 @@ while (retries > 0)
         using var scope = app.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         dbContext.Database.Migrate();
+        
+        Console.WriteLine("Migrations aplicadas");
+        
+        Console.WriteLine("Quantidade de registros: " + dbContext.Tasks.Count());
+        
+        if (!dbContext.Tasks.Any())
+        {
+            dbContext.Tasks.Add(new MaskTanager.Models.Task
+            {
+                Title = "Task 1",
+                Description = "Task de teste numero 1"
+            });
+            
+            dbContext.Tasks.Add(new MaskTanager.Models.Task
+            {
+                Title = "Task 2",
+                Description = "Task de teste numero 2"
+            });
+            dbContext.SaveChanges();
+            
+            Console.WriteLine("Seed aplicada!");
+        }
+        
+        Console.WriteLine("Quantidade de registros após seed: " +  dbContext.Tasks.Count());
         break;
     }
     catch (Exception Ex)
