@@ -62,8 +62,13 @@
   box-sizing: border-box;
 }
 
+#root *{
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  z-index: 0;
 }
 
 h1,
@@ -108,4 +113,106 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+div#root ul.Widget{
+  margin: 0!important;
+  padding: 0!important;
+}
+
+div#root ul.Widget.WidgetTaskList{
+  display: flex;
+  flex-wrap: wrap;
+
+  /*definir gap*/
+  gap: 16px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+div#root ul.WidgetTaskList li.task{
+  width: 100%;
+  max-width: calc(50% - 8px);
+  border-radius: 8px;
+  background: white;
+}
+
+div#root ul.WidgetTaskList li.task a.taskButton{
+  width: 100%;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+}
+
+div#root ul.WidgetTaskList li.task div.task-attr h3.taskTitle{
+  margin: 0!important;
+}
+
+div#root ul.WidgetTaskList li.task div.task-attr p.taskDescription{
+  margin: 0!important;
+}
+
+
+
+div#root ul.Widget>li::marker{
+  display: none!important;
+  color: transparent
+}
+
+div#root .ModalWrapper{
+  position: fixed;  
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+div#root .ModalCover{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur();  
+  height: 100%;
+  width: 100%;
+}
+
+div#root .Title{
+  margin: 0!important;
+}
+
+div#root .ModalWrapper .ModalContainer{
+  height: fit-content;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+div#root .ModalWrapper .ModalContainer .ModalTaskView{
+  height: auto;
+  width: 100%;
+  background: white;
+  border-radius: 24px;
+}
+
+div#root .ModalWrapper .ModalContainer .ModalTaskDelete{
+  height: fit-content;
+  width: 50%;
+  background: white;
+  border-radius: 24px;
+}
+
+div#root div.TaskView{
+  height: 100%;
+  width: 100%;  
+}
+
+div#root .hide{
+  display: none!important;
 }

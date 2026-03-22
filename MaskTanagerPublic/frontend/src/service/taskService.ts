@@ -58,6 +58,7 @@ export const addTask = async ({title, description} : addTaskParams) => {
 
 export const deleteTask = async ({id} : deleteTaskParams) => {
     try {
+        console.log('entramo na API');
         const res = await api.post('/Task/delete', {id});
         return res.data;
     } catch (e) {

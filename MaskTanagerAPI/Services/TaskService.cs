@@ -64,7 +64,7 @@ public class TaskService : ITaskService
         
         if (descricao != null)
         {
-            task.Description = titulo;
+            task.Description = descricao;
         }
 
         if (status != null)
