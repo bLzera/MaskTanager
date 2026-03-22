@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
-import { api } from "./service/api"
+import { getTask } from "./service/taskService"
 import './App.css'
 
 function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    api.get('/Task')
-      .then(res => setTasks(res.data))
-      .catch(err => console.log(err));
+    const fetchTasks = async () => {
+      const data = await getTask();
+      console.log('achou os dados no fetch')
+      setTasks(data);
+    };
+
+    fetchTasks();
   }, []);
 
   return (
