@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import { getTask } from "./service/taskService"
 import { Index } from './pages/Index'
 import './App.css'
 

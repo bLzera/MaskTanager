@@ -27,7 +27,7 @@ export const TaskList = ({tasks, onSave, onDelete}: Props) => {
     }
 
     return (
-    <ul className='Widget WidgetTaskList'>
+    <ul className='List TaskList'>
         {tasks.map((task, i) => (
             <li className='task' key={i}>
                 <div className='task-attr AttrTaskId'>

@@ -70,13 +70,15 @@ export const Index = () => {
 
     return (
         <>
-            <TaskList tasks={tasks} onSave={handleSave} onDelete={handleDelete}/>
-            <button onClick={() => {setTaskAdd(true)}}>Adicionar task?</button>            
-            {taskAdd && 
-            <ModalWrapper onClickModal={handleClickModal}>
-                <TaskAdd onClose={() => {setTaskAdd(false)}} onAdd={handleAdd}/>
-            </ModalWrapper>
-            }            
+            <div className="Widget TaskWidget">
+                <TaskList tasks={tasks} onSave={handleSave} onDelete={handleDelete}/>
+                <button className='Add TaskAdd' onClick={() => {setTaskAdd(true)}}>Adicionar task?</button>            
+                {taskAdd && 
+                <ModalWrapper onClickModal={handleClickModal}>
+                    <TaskAdd onClose={() => {setTaskAdd(false)}} onAdd={handleAdd}/>
+                </ModalWrapper>
+                }            
+            </div>
         </>
     );
 }

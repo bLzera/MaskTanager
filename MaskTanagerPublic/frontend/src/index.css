@@ -115,12 +115,12 @@ code {
   background: var(--code-bg);
 }
 
-div#root ul.Widget{
+div#root ul.List{
   margin: 0!important;
   padding: 0!important;
 }
 
-div#root ul.Widget.WidgetTaskList{
+div#root ul.List.TaskList{
   display: flex;
   flex-wrap: wrap;
 
@@ -130,31 +130,31 @@ div#root ul.Widget.WidgetTaskList{
   justify-content: space-between;
 }
 
-div#root ul.WidgetTaskList li.task{
+div#root ul.TaskList li.task{
   width: 100%;
   max-width: calc(50% - 8px);
   border-radius: 8px;
   background: white;
 }
 
-div#root ul.WidgetTaskList li.task a.taskButton{
+div#root ul.TaskList li.task a.taskButton{
   width: 100%;
   border-radius: 8px;
   background: white;
   cursor: pointer;
 }
 
-div#root ul.WidgetTaskList li.task div.task-attr h3.taskTitle{
+div#root ul.TaskList li.task div.task-attr h3.taskTitle{
   margin: 0!important;
 }
 
-div#root ul.WidgetTaskList li.task div.task-attr p.taskDescription{
+div#root ul.TaskList li.task div.task-attr p.taskDescription{
   margin: 0!important;
 }
 
 
 
-div#root ul.Widget>li::marker{
+div#root ul.List>li::marker{
   display: none!important;
   color: transparent
 }
