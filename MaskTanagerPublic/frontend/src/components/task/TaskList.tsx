@@ -37,7 +37,7 @@ export const TaskList = ({tasks, onSave, onDelete}: Props) => {
 
     return (
     <ul className={`${style.TaskList}`}>
-        {tasks.map((task, i) => (
+        {tasks.map((task) => (
             <TaskListItem 
                 task={task}
                 onClickTask={handleClickTask} 

@@ -1,0 +1,38 @@
+.Task{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px;
+    gap: 12px;
+    border: 1px solid #cacaca;
+    border-radius: 16px;
+    flex: 1 1 calc(50% - 12px);
+}
+
+.TaskAttr{
+    width: 100%;
+}
+
+.TaskAttr.TaskAttrId{
+    flex: 1 1 calc(50% - 6px);
+    display: flex;
+    flex-direction: row-reverse;
+    order: 2;
+}
+
+.TaskAttr.TaskAttrTitle{
+    flex: 1 1 calc(50% - 6px);
+    order: 1;
+}
+
+.TaskAttr.TaskAttrDescription{
+    order: 3;
+}
+
+.DeleteTask{
+    width: 100%;
+    order: 4;
+}
