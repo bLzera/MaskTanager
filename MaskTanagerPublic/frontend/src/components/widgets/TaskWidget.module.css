@@ -1,0 +1,31 @@
+div.TaskWidget{
+    width: 70%;
+    border: 1px solid #cacaca;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+    border-radius: 24px;
+}
+
+button.TaskAdd{
+    background: #29ff34;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 500;
+    width: 30%;
+}
+
+button.TaskAdd:hover{
+    background: #00ff0d; 
+}

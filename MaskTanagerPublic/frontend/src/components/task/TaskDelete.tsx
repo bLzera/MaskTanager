@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import '../../App.css';
 
 type Task = {
@@ -14,15 +13,10 @@ type Props = {
 }
 
 export const TaskDelete = ({task, onClose, onDelete}: Props) => {
-
-    
-
-    function handleTaskDelete(){
+    const handleTaskDelete = () => {
         onDelete(task.id);
         onClose();
     }
-
-
 
     return (
         <div className="ModalTaskDelete ModalContainer">

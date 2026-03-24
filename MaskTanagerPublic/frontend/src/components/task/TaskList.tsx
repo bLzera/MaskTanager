@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { ModalWrapper } from '../util/ModalWrapper';
 import { TaskView } from './TaskView';
 import { TaskDelete } from './TaskDelete';
-import '../../App.css';
+import { TaskListItem } from './TaskListItem';
+import style from './TaskList.module.css';
 
 type Task = {
     id: number,
@@ -26,36 +27,21 @@ export const TaskList = ({tasks, onSave, onDelete}: Props) => {
         setTaskDelete(null);
     }
 
+    const handleClickTask = (task: Task) => {
+        setTaskView(task);
+    }
+
+    const handleClickDelete = (task: Task) => {
+        setTaskDelete(task);
+    }
+
     return (
-    <ul className='List TaskList'>
+    <ul className={`${style.TaskList}`}>
         {tasks.map((task, i) => (
-            <li className='task' key={i}>
-                <div className='task-attr AttrTaskId'>
-                    <h3 className={'taskId ' + (task.isTemp && 'hide')}>{task.id}</h3>
-                </div>
-                <div className='task-attr AttrTaskTitle'>
-                    <h3 className='taskTitle'>{task.title}</h3>
-                </div>
-                <div className='task-attr AttrTaskDescription'>
-                    <p className='taskDescription'>{task.description}</p>
-                </div>
-                <button className='taskButton' onClick={() => setTaskView(task)}>Ver Task</button>
-                {!taskDelete ? (
-                    <>
-                        <button className='taskButton deleteTask' onClick={() => setTaskDelete(task)}>Deletar Task</button>
-                    </>
-                ) : (
-                    <>
-                        <ModalWrapper onClickModal={handleClose}>
-                            <TaskDelete 
-                                task={taskDelete}
-                                onClose={handleClose}
-                                onDelete={onDelete}
-                            />
-                        </ModalWrapper>
-                    </>
-                )}
-            </li>
+            <TaskListItem 
+                task={task}
+                onClickTask={handleClickTask} 
+                onClickDelete={handleClickDelete}/>
         ))}
         {taskView && (
             <ModalWrapper onClickModal={handleClose}>
@@ -66,5 +52,15 @@ export const TaskList = ({tasks, onSave, onDelete}: Props) => {
                 />
             </ModalWrapper>
         )}
-    </ul>)
+        {taskDelete && (
+            <ModalWrapper onClickModal={handleClose}>
+                <TaskDelete
+                    task={taskDelete}
+                    onDelete={onDelete}
+                    onClose={handleClose}
+                />
+            </ModalWrapper>
+        )}
+    </ul>
+    )
 };
