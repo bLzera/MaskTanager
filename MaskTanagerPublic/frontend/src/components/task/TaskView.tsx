@@ -1,11 +1,6 @@
 import { useState } from 'react';
+import type { Task } from '../../types/Task';
 import '../../App.css';
-
-type Task = {
-    id: number,
-    title: string,
-    description: string,
-}
 
 type Props = {
     task: Task,
@@ -17,11 +12,12 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
     const [taskEdit, setTaskEdit] = useState(false);
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
+    const [status, setStatus] = useState(task.status);
 
     
 
     function handleTaskSubmit(){
-        onSave({id: task.id, title: title, description: description});
+        onSave({task.id});
         onClose();
         setTaskEdit(false);
     }
@@ -35,6 +31,9 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
                     <div className="TaskView View">
                         <h2 className='TaskView taskTitle'>{title}</h2>
                         <p className='TaskView taskDescription'>{description}</p>
+                        <select value={status} onChange={(e) => {setStatus(parseInt(e.target.value))}} className='TaskView taskStatus'>
+                            
+                        </select>
                         <button className= 'TaskView taskEdit' onClick={() => setTaskEdit(true)}>Editar task</button>
                     </div>
                 </>

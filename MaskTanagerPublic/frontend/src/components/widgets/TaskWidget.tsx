@@ -4,14 +4,8 @@ import { ModalWrapper } from '../util/ModalWrapper';
 import { getTask, editTask, deleteTask, addTask } from '../../service/taskService';
 import { useEffect, useState } from 'react';
 import { SquarePlus } from 'lucide-react';
+import type { Task } from '../../types/Task';
 import styles from './TaskWidget.module.css';
-
-type Task = {
-    id: number,
-    title: string,
-    description: string,
-    isTemp?: boolean,
-}
 
 export const TaskWidget = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -28,9 +22,12 @@ export const TaskWidget = () => {
 
     const handleSave = async (novaTask: Task) => {
         setTasks((tasks) => 
-            tasks.map((t) => (
-                t.id === novaTask.id ? novaTask : t
-            ))
+            tasks.map((t) => {
+                if(t.id === novaTask.id){
+                    return novaTask;
+                }
+                return t;
+            })
         );
 
         await editTask(novaTask);
@@ -52,6 +49,7 @@ export const TaskWidget = () => {
             id: tempId,
             title: title,
             description: description,
+            status: 2,
             isTemp: true,
         };
 

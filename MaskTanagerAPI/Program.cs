@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using MaskTanager.Data;
 using MaskTanager.Models;
 using MaskTanager.Services;
@@ -6,7 +7,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>
 {

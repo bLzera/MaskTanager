@@ -1,12 +1,6 @@
 import { Trash } from 'lucide-react';
+import type { Task } from '../../types/Task';
 import style from './TaskListItem.module.css';
-
-type Task = {
-    id: number,
-    title: string,
-    description: string,
-    isTemp?: boolean,
-}
 
 type Props = {
     task: Task;

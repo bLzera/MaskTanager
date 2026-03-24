@@ -3,14 +3,8 @@ import { ModalWrapper } from '../util/ModalWrapper';
 import { TaskView } from './TaskView';
 import { TaskDelete } from './TaskDelete';
 import { TaskListItem } from './TaskListItem';
+import type { Task } from '../../types/Task';
 import style from './TaskList.module.css';
-
-type Task = {
-    id: number,
-    title: string,
-    description: string,
-    isTemp?: boolean,
-}
 
 type Props = {
     tasks: Task[];
