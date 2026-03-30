@@ -1,4 +1,5 @@
 import { api } from './api';
+import type { Enum } from '../types/Enum';
 
 type getTaskParams = {
     id?: number,
@@ -8,7 +9,7 @@ type editTaskParams = {
     id: number,
     title?: string,
     description?: string,
-    status: number,
+    status: Enum,
 }
 
 type addTaskParams = {
@@ -36,24 +37,29 @@ export const getTask = async ({ id } : getTaskParams = {}) => {
 
 export const editTask = async ({id, title, description, status} : editTaskParams) => {
     try {
-        const res = await api.post('/Task/edit', {id, title, description, status});
-        console.log(status);
+        const res = await api.post('/Task/edit', {id, title, description, status: status.id});
         return res.data;
-    } catch (e) {
-        console.log('erro ao tentar editar task: ' + e);
+    } catch (e: any) {
+        console.log('erro completo:' , e);
+        console.log('response:' , e?.response);
+        console.log('data:' , e?.response?.data);
+        console.log('status:' , e?.response?.status);
     }
 }
 
 export const addTask = async ({title, description} : addTaskParams) => {
-    try {
-        if(!description){
-            const res = await api.post('/Task/add', {title});
+    try {                
+        if(!description){            
+            const res = await api.post('/Task/add', {title}, {
+                timeout: 10000,
+            });
             return res.data;
-        }
+        }        
         const res = await api.post('/Task/add', {title, description});
         return res.data;
-    } catch (e) {
-        console.log('erro ao tentar adicionar task: ' + e);
+    } catch (e: any) {
+        console.log(e.message);
+        console.log('API INSTANCE: ', api);
     }
 }
 

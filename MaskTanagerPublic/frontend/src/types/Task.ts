@@ -1,7 +1,9 @@
+import type { Enum } from "./Enum";
+
 export type Task = {
     id: number,
     title: string,
     description: string,
-    status: number,
+    status: Enum,
     isTemp?: boolean,
 }

@@ -59,20 +59,26 @@ export const TaskWidget = () => {
         await deleteTask({id: id});
     }
 
-    const handleAdd = async (title: string, description: string) => {
+    //todo ajustar forma como envia o status.id
+    const handleAdd = async (title: string, description: string, e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const tempId = Date.now();
         const newTask: Task = {
             id: tempId,
             title: title,
             description: description,
-            status: 2,
+            status: ,
             isTemp: true,
         };
 
         setTasks((prev) => [...prev, newTask]);
 
+        console.log('vai entrar no try');
+
         try{
+            console.log('ta entrando no addTask');
             const createdTask = await addTask({title, description });
+            console.log('passou do await add');
             setTasks((prev) => prev.map((t) => t.isTemp ? createdTask : t))
         } catch (err) {
             console.log('erro ao criar task', err);

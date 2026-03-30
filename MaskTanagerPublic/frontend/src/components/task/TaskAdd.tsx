@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import type { Task } from '../../types/Task';
 
 type Props = {
     onClose: () => void;
-    onAdd: (title: string, description: string) => void;
+    onAdd: (title: string, description: string, e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export const TaskAdd = ({onClose, onAdd}: Props) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
-    const handleTaskSubmit = () => {
-        onAdd(title, description);
+    const handleTaskSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        onAdd(title, description, e);
         onClose();
     }
 
