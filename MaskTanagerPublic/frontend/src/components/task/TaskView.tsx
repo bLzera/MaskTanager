@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EnumSelect } from '../util/EnumSelect';
 import type { Task } from '../../types/Task';
+import type { Enum } from '../../types/Enum';
 import '../../App.css';
+import { getEnum } from '../../service/configService';
 
 type Props = {
     task: Task,
@@ -14,8 +16,20 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
     const [status, setStatus] = useState(task.status);
+    const [enums, setEnums] = useState<Enum[]>([]);
 
-    function handleTaskSubmit(){
+    useEffect(() => {
+        if(!taskEdit) return;
+        const fetchEnums = async () => {
+            const data = await getEnum({nome: 'status'});
+            setEnums(data);
+        };
+
+        fetchEnums();
+    }, [taskEdit]); 
+
+    function handleTaskSubmit(e: React.FormEvent){
+        e.preventDefault();
         const newTask = {
             ...task,
             title,
@@ -27,21 +41,14 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
         setTaskEdit(false);
     }
 
-
-
     return (
-        <div className="ModalTaskView Container">
+        <div className="ModalTaskView Container">            
             {!taskEdit ? (
                 <>
                     <div className="TaskView View">
                         <h2 className='TaskView taskTitle'>{title}</h2>
                         <p className='TaskView taskDescription'>{description}</p>
-                        <EnumSelect
-                            enumName="Status"
-                            status={status}
-                            onChange={(e) => {setStatus(parseInt(e.target.value))}}
-                            active={false}
-                        />
+                        <span className='TaskView taskStatus'>{status.title}</span>
                         <button className= 'TaskView taskEdit' onClick={() => setTaskEdit(true)}>Editar task</button>
                     </div>
                 </>
@@ -51,10 +58,14 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
                         <input type='text' value={title} onChange={(e) => setTitle(e.target.value)}/>
                         <textarea value={description} onChange={(e) => setDescription(e.target.value)}/>
                         <EnumSelect
-                            enumName="Status"
-                            status={status}
-                            onChange={(e) => {setStatus(parseInt(e.target.value))}}
-                            active={true}
+                            options={enums}
+                            value={status.id}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                                const selected = enums.find(t => t.id === parseInt(e.target.value));
+                                if(selected){
+                                    setStatus(selected);
+                                }
+                            }}
                         />
                         <button type="submit">Salvar</button>
                     </form>
