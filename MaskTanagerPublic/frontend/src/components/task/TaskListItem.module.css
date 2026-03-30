@@ -10,6 +10,33 @@
     border: 1px solid #cacaca;
     border-radius: 16px;
     flex: 1 1 calc(50% - 12px);
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.Task.concluida{
+    border-left: 10px solid green!important;
+    border: 1px solid green;
+}
+
+.Task.pendente{
+    border-left: 10px solid yellow!important;
+    border: 1px solid yellow;
+}
+
+.Task.cancelada{
+    border-left: 10px solid grey!important;
+    border: 1px solid grey;
+}
+
+@media screen and (max-width: 768px){
+    .Task{
+        flex: 1 1 100%!important;
+    }
+}
+
+.Task:hover{
+    background: #cacaca;
 }
 
 .TaskAttr{
@@ -30,6 +57,14 @@
 
 .TaskAttr.TaskAttrDescription{
     order: 3;
+}
+
+.TaskAttr.TaskAttrDescription .Description{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .DeleteTask{

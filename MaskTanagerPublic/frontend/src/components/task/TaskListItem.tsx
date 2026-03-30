@@ -9,8 +9,17 @@ type Props = {
 }
 
 export const TaskListItem = ({task, onClickDelete, onClickTask}: Props) => {
+    const getStatusColor = () => {
+        switch (task.status){
+            case 1: return style.concluida;
+            case 2: return style.pendente;
+            case 3: return style.cancelada;
+            default: return 'default';
+        }
+    }
+
     return (
-        <li onClick={() => onClickTask(task)} className={style.Task} key={task.id}>
+        <li onClick={() => onClickTask(task)} className={`${style.Task} ${getStatusColor()}`} key={task.id}>
             <div className={`${style.TaskAttr} ${style.TaskAttrId}`}>
                 <h3 className={`${style.Id} ${task.isTemp && 'hide'}`}>{task.id}</h3>
             </div>

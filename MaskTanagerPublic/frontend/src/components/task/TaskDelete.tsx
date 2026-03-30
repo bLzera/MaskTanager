@@ -1,10 +1,5 @@
 import '../../App.css';
-
-type Task = {
-    id: number,
-    title: string,
-    description: string,
-}
+import type { Task } from '../../types/Task';
 
 type Props = {
     task: Task,

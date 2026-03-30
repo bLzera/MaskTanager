@@ -7,11 +7,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    });
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>
 {
@@ -36,10 +32,6 @@ while (retries > 0)
         var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         dbContext.Database.Migrate();
         
-        Console.WriteLine("Migrations aplicadas");
-        
-        Console.WriteLine("Quantidade de registros: " + dbContext.Tasks.Count());
-        
         if (!dbContext.Tasks.Any())
         {
             dbContext.Tasks.Add(new MaskTanager.Models.Task
@@ -54,11 +46,7 @@ while (retries > 0)
                 Description = "Task de teste numero 2"
             });
             dbContext.SaveChanges();
-            
-            Console.WriteLine("Seed aplicada!");
         }
-        
-        Console.WriteLine("Quantidade de registros após seed: " +  dbContext.Tasks.Count());
         break;
     }
     catch (Exception Ex)

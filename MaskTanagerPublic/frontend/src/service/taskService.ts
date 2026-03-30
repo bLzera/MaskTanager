@@ -8,6 +8,7 @@ type editTaskParams = {
     id: number,
     title?: string,
     description?: string,
+    status: number,
 }
 
 type addTaskParams = {
@@ -21,7 +22,6 @@ type deleteTaskParams = {
 
 export const getTask = async ({ id } : getTaskParams = {}) => {
     try{
-        console.log('entrando no try...');
         if(!id){
             const res = await api.get('/Task');
             return res.data;
@@ -34,9 +34,10 @@ export const getTask = async ({ id } : getTaskParams = {}) => {
     }
 } 
 
-export const editTask = async ({id, title, description} : editTaskParams) => {
+export const editTask = async ({id, title, description, status} : editTaskParams) => {
     try {
-        const res = await api.post('/Task/edit', {id, title, description});
+        const res = await api.post('/Task/edit', {id, title, description, status});
+        console.log(status);
         return res.data;
     } catch (e) {
         console.log('erro ao tentar editar task: ' + e);

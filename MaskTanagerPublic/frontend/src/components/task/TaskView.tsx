@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { EnumSelect } from '../util/EnumSelect';
 import type { Task } from '../../types/Task';
 import '../../App.css';
 
@@ -14,10 +15,14 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
     const [description, setDescription] = useState(task.description);
     const [status, setStatus] = useState(task.status);
 
-    
-
     function handleTaskSubmit(){
-        onSave({task.id});
+        const newTask = {
+            ...task,
+            title,
+            description,
+            status,
+        };
+        onSave(newTask);
         onClose();
         setTaskEdit(false);
     }
@@ -31,9 +36,12 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
                     <div className="TaskView View">
                         <h2 className='TaskView taskTitle'>{title}</h2>
                         <p className='TaskView taskDescription'>{description}</p>
-                        <select value={status} onChange={(e) => {setStatus(parseInt(e.target.value))}} className='TaskView taskStatus'>
-                            
-                        </select>
+                        <EnumSelect
+                            enumName="Status"
+                            status={status}
+                            onChange={(e) => {setStatus(parseInt(e.target.value))}}
+                            active={false}
+                        />
                         <button className= 'TaskView taskEdit' onClick={() => setTaskEdit(true)}>Editar task</button>
                     </div>
                 </>
@@ -42,6 +50,12 @@ export const TaskView = ({task, onClose, onSave}: Props) => {
                     <form className="TaskView Edit" onSubmit={handleTaskSubmit}>
                         <input type='text' value={title} onChange={(e) => setTitle(e.target.value)}/>
                         <textarea value={description} onChange={(e) => setDescription(e.target.value)}/>
+                        <EnumSelect
+                            enumName="Status"
+                            status={status}
+                            onChange={(e) => {setStatus(parseInt(e.target.value))}}
+                            active={true}
+                        />
                         <button type="submit">Salvar</button>
                     </form>
                 </>

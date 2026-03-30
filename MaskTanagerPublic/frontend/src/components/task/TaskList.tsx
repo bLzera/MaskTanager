@@ -15,46 +15,40 @@ type Props = {
 export const TaskList = ({tasks, onSave, onDelete}: Props) => {
     const [taskView, setTaskView] = useState<Task | null>(null);
     const [taskDelete, setTaskDelete] = useState<Task | null>(null);
+    const [openModal, setOpenModal] = useState(false);
 
     const handleClose = () => {
         setTaskView(null);
         setTaskDelete(null);
-    }
-
-    const handleClickTask = (task: Task) => {
-        setTaskView(task);
-    }
-
-    const handleClickDelete = (task: Task) => {
-        setTaskDelete(task);
+        setOpenModal(false);
     }
 
     return (
-    <ul className={`${style.TaskList}`}>
-        {tasks.map((task) => (
-            <TaskListItem 
-                task={task}
-                onClickTask={handleClickTask} 
-                onClickDelete={handleClickDelete}/>
-        ))}
-        {taskView && (
-            <ModalWrapper onClickModal={handleClose}>
-                <TaskView 
-                    task={taskView}
-                    onClose={handleClose}
-                    onSave={onSave}
-                />
-            </ModalWrapper>
+    <>
+        <ul className={`${style.TaskList}`}>
+            {tasks.map((task) => (
+                <TaskListItem 
+                    task={task}
+                    onClickTask={() => {setTaskView(task); setOpenModal(true)}} 
+                    onClickDelete={() => {setTaskDelete(task); setOpenModal(true)}}/>
+            ))}        
+        </ul>
+        <ModalWrapper isOpen={openModal} onClickModal={handleClose}>
+        {taskView && (            
+        <TaskView 
+                task={taskView}
+                onClose={handleClose}
+                onSave={onSave}
+            />
         )}
         {taskDelete && (
-            <ModalWrapper onClickModal={handleClose}>
-                <TaskDelete
-                    task={taskDelete}
-                    onDelete={onDelete}
-                    onClose={handleClose}
-                />
-            </ModalWrapper>
+            <TaskDelete
+                task={taskDelete}
+                onDelete={onDelete}
+                onClose={handleClose}
+            />
         )}
-    </ul>
+        </ModalWrapper>
+    </>
     )
 };

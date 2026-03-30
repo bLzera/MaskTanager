@@ -1,11 +1,5 @@
-import { useState } from 'react'
-
-type Task = {
-    id: number,
-    title: string,
-    description: string,
-    isTemp?: boolean,
-}
+import { useState } from 'react';
+import type { Task } from '../../types/Task';
 
 type Props = {
     onClose: () => void;
