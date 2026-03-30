@@ -1,11 +1,8 @@
-using System.Runtime.CompilerServices;
 using MaskTanager.Data;
-using MaskTanager.Services;
-using MaskTanager.Models;
 using MaskTanager.DTOs;
 using MaskTanager.Enums;
 using Microsoft.EntityFrameworkCore;
-using Task = System.Threading.Tasks.Task;
+using MaskTanager.Helpers;
 
 namespace MaskTanager.Services;
 
@@ -20,14 +17,15 @@ public class TaskService : ITaskService
 
     public async Task<List<TaskDTO>> GetTasks(int? id = null)
     {
-        return await _context.Tasks.Select(
+        var tasks = await _context.Tasks.ToListAsync();
+        return tasks.Select(
             t => new TaskDTO
             {
                 Id = t.Id,
                 Title = t.Title,
                 Description = t.Description,
-                Status = t.Status
-            }).ToListAsync();
+                Status = StatusHelper.GetStatus((int)t.Status),
+            }).ToList();
     }
     
     public async Task<TaskDTO?> GetTaskById(int id)
@@ -44,7 +42,7 @@ public class TaskService : ITaskService
             Id = task.Id,
             Title = task.Title,
             Description = task.Description,
-            Status = task.Status
+            Status = StatusHelper.GetStatus((int)task.Status)
         };
     }
 
@@ -79,7 +77,7 @@ public class TaskService : ITaskService
             Id = task.Id,
             Title = task.Title,
             Description = task.Description,
-            Status = task.Status
+            Status = StatusHelper.GetStatus((int)task.Status)
         };
     }
 
@@ -100,7 +98,7 @@ public class TaskService : ITaskService
             Id = task.Id,
             Title = task.Title,
             Description = task.Description,
-            Status = task.Status,
+            Status = StatusHelper.GetStatus((int)task.Status),
         };
     }
 

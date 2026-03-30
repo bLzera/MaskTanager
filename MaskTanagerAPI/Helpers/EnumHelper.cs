@@ -1,18 +1,19 @@
 using MaskTanager.Enums;
+using MaskTanager.DTOs;
 
 namespace MaskTanager.Helpers;
 
 public static class EnumHelper
 {
-    public static IEnumerable<object> GetEnumValues<T>() where T : Enum
+    public static IEnumerable<EnumDTO> GetEnumValues<T>() where T : Enum
     {
         return Enum.GetValues(typeof(T))
             .Cast<T>()
-            .Select(e => new
+            .Select(e => new EnumDTO
             {
-                id = Convert.ToInt32(e),
-                nome = e.ToString(),
-                descricao = (e as Enum).GetDescription()
+                Id = Convert.ToInt32(e),
+                Title = e.ToString(),
+                Description = (e as Enum).GetDescription()
             });
     }
 }
