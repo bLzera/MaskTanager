@@ -28,7 +28,6 @@ export const getTask = async ({ id } : getTaskParams = {}) => {
             return res.data;
         }
         const res = await api.get(`/Task/${id}`);
-        console.log('achou dados');
         return await res.data;
     } catch (e) {
         console.log('erro ao tentar buscar tasks: ' + e);
@@ -65,7 +64,6 @@ export const addTask = async ({title, description} : addTaskParams) => {
 
 export const deleteTask = async ({id} : deleteTaskParams) => {
     try {
-        console.log('entramo na API');
         const res = await api.post('/Task/delete', {id});
         return res.data;
     } catch (e) {

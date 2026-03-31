@@ -22,7 +22,7 @@ export const TaskListItem = ({task, onClickDelete, onClickTask}: Props) => {
     }
 
     return (
-        <li onClick={() => onClickTask(task)} className={`${style.Task} ${task && getStatusColor(task)}`} key={task.id}>
+        <li onClick={() => onClickTask(task)} className={`${style.Task} ${task && getStatusColor(task)}`}>
             <div className={`${style.TaskAttr} ${style.TaskAttrId}`}>
                 <h3 className={`${style.Id} ${task.isTemp && 'hide'}`}>{task.id}</h3>
             </div>

@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { SquarePlus } from 'lucide-react';
 import type { Task } from '../../types/Task';
 import styles from './TaskWidget.module.css';
-import { getEnum } from '../../service/configService';
 
 type sortKey = 'id' | 'titulo' | 'status' | 'none';
 
@@ -60,7 +59,6 @@ export const TaskWidget = () => {
         await deleteTask({id: id});
     }
 
-    //todo ajustar forma como envia o status.id
     const handleAdd = async (title: string, description: string, e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const tempId = Date.now();
@@ -95,16 +93,18 @@ export const TaskWidget = () => {
     return (
         <>
             <div className={styles.TaskWidget}>
-                <SortList<sortKey> 
-                    sortType={sortBy}  
-                    onSort={handleSortTasks}
-                    options={[
-                        {key: 'none', label: 'Sem ordenação'},
-                        {key: 'id', label: 'ID'},
-                        {key: 'status', label: 'Status'},
-                        {key: 'titulo', label: 'Título'},
-                    ]}
-                />
+                <div className={styles.SortContainer}>
+                    <SortList<sortKey> 
+                        sortType={sortBy}  
+                        onSort={handleSortTasks}
+                        options={[
+                            {key: 'none', label: 'Sem ordenação'},
+                            {key: 'id', label: 'ID'},
+                            {key: 'status', label: 'Status'},
+                            {key: 'titulo', label: 'Título'},
+                        ]}
+                    />
+                </div>
                 <TaskList tasks={sortedTasks ? sortedTasks : tasks} onSave={handleSave} onDelete={handleDelete}/>
                 <button className={`${styles.TaskAdd} btn btn-primary`} onClick={() => {setTaskAdd(true); setOpenModal(true)}}>Adicionar task <SquarePlus size={16} color={'black'} strokeWidth={3}/></button>            
                 <ModalWrapper isOpen={openModal} onClickModal={handleCloseModal}>

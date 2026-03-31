@@ -28,6 +28,7 @@ export const TaskList = ({tasks, onSave, onDelete}: Props) => {
         <ul className={`${style.TaskList}`}>
             {tasks.map((task) => (
                 <TaskListItem 
+                    key={task.id}
                     task={task}
                     onClickTask={() => {setTaskView(task); setOpenModal(true)}} 
                     onClickDelete={() => {setTaskDelete(task); setOpenModal(true)}}/>
