@@ -9,10 +9,19 @@ type Props = {
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-//TODO entender pq o <select> não ta pegando o classname
-//já foi realizado
-    //console.log(style);
-//o objeto retorna o atributo EnumSelect
+//ideia ter ícon que representa um filtro e quando aperta expande lista de filtros disponíveis
+//dar foco primeiro à estilização das telas básicas do tema claro.
+/** 
+ * todo
+ * 
+ * melhorar tela da listagem de tasks
+ * melhorar design card de task
+ * estilizar tela de inclusão de task
+ * estilizar tela de visualização de task
+ * estilizar tela de edição de task
+ * 
+ * finalizar o básico e dps melhorar
+*/
 export const EnumSelect = ({options, value, onChange}: Props) => {
     return (
         <select value={value} onChange={onChange} className={style.EnumSelect}>

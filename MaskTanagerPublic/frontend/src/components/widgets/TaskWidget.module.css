@@ -1,6 +1,5 @@
 div.TaskWidget{
-    width: 70%;
-    border: 1px solid #cacaca;
+    width: 100%;
     background: #FFF;
     display: flex;
     flex-direction: column;
@@ -8,7 +7,6 @@ div.TaskWidget{
     align-items: center;
     gap: 24px;
     padding: 24px;
-    border-radius: 24px;
 }
 
 div.SortContainer{

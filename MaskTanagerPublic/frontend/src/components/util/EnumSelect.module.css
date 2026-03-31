@@ -1,8 +1,14 @@
-.Select{
-    background: red;
+.EnumSelect{
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;    
+    background: transparent;
+    border: 0;
+    transition: all .3s ease;
 }
 
-.EnumSelect{
-    background: blue;
-    width: 100%;
+.EnumSelect:hover{
+    background: #cacaca;
 }

@@ -1,3 +1,4 @@
+import style from './EnumSelect.module.css';
 
 type sortOptions<T extends string> = {
     key: T;
@@ -18,6 +19,7 @@ export const SortList = <T extends string>({onSort, sortType, options}: Props<T>
                 const key = e.target.value as T;
                 onSort(key);
             }}
+            className={style.EnumSelect}
         >
             {options.map((option) => (
                 <option

@@ -1,0 +1,29 @@
+.AppBody{
+    max-width: 1440px!important;
+    margin: 0 auto!important;
+    position: relative;
+}
+
+@media screen and (max-width: 1366px){
+    .AppBody{
+        max-width: 1280px!important;
+    }
+}
+
+@media screen and (max-width: 1280px){
+    .AppBody{
+        max-width: 1280px!important;
+    }
+}
+
+@media screen and (max-width: 960px){
+    .AppBody{
+        max-width: 960px!important;
+    }
+}
+
+@media screen and (max-width: 720px){
+    .AppBody{
+        max-width: 720px!important;
+    }
+}
