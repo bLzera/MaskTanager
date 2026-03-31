@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { SquarePlus } from 'lucide-react';
 import type { Task } from '../../types/Task';
 import styles from './TaskWidget.module.css';
+import { getEnum } from '../../service/configService';
 
 type sortKey = 'id' | 'titulo' | 'status' | 'none';
 
@@ -28,7 +29,7 @@ export const TaskWidget = () => {
     const sortedTasks: Task[] | null = sortBy !== 'none' ? [...tasks].sort((a, b) => {
         switch(sortBy){
             case 'id':      return a.id - b.id;
-            case 'status':  return a.status - b.status;
+            case 'status':  return a.status.id - b.status.id;
             case 'titulo':  return a.title.localeCompare(b.title); 
         }}) : null;
 
@@ -67,18 +68,18 @@ export const TaskWidget = () => {
             id: tempId,
             title: title,
             description: description,
-            status: ,
+            status: {
+                id: 0,
+                title: 'Carregando',
+                description: 'Carregando status da task',
+            },
             isTemp: true,
         };
 
         setTasks((prev) => [...prev, newTask]);
 
-        console.log('vai entrar no try');
-
         try{
-            console.log('ta entrando no addTask');
             const createdTask = await addTask({title, description });
-            console.log('passou do await add');
             setTasks((prev) => prev.map((t) => t.isTemp ? createdTask : t))
         } catch (err) {
             console.log('erro ao criar task', err);

@@ -11,7 +11,7 @@ type Props = {
 export const TaskListItem = ({task, onClickDelete, onClickTask}: Props) => {
     const getStatusColor = (task: Task) => {                
         if(!task.isTemp) {
-            switch (task.status){
+            switch (task.status.id){
                 case 1: return style.concluida;
                 case 2: return style.pendente;
                 case 3: return style.cancelada;
