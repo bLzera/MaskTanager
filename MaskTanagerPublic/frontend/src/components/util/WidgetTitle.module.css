@@ -1,0 +1,10 @@
+.TitleContainer{
+    width: fit-content;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Title{
+    font-size: 32px;
+    color: #000;
+}

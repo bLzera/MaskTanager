@@ -7,10 +7,12 @@ function App() {
   
 
   return (
+    <>
     <div className={style.AppBody}>
       <Header></Header>
       <Index></Index>
     </div>
+    </>
   );
 }
 

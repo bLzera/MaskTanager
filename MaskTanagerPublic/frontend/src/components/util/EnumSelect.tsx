@@ -27,7 +27,7 @@ export const EnumSelect = ({options, value, onChange}: Props) => {
         <select value={value} onChange={onChange} className={style.EnumSelect}>
             {options.map((el) => (
                 <option key={el.id} value={el.id} className="Option EnumOption">
-                    {el.description}
+                    {el.title}
                 </option>
             ))}
         </select>

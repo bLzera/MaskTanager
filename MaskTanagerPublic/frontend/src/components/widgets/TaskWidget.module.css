@@ -9,10 +9,26 @@ div.TaskWidget{
     padding: 24px;
 }
 
+div.TitleOptionsContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 24px;
+}
+
+div.OptionsContainer{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
 div.SortContainer{
     display: flex;
-    width: 100%;
+    width: calc(50% - 12px);
     justify-content: center;
+    height: 100%;
 }
 
 button.TaskAdd{
@@ -27,7 +43,7 @@ button.TaskAdd{
     font-family: var(--font-primary);
     font-size: 16px;
     font-weight: 500;
-    width: 30%;
+    width: calc(50% - 12px);
 }
 
 button.TaskAdd:hover{

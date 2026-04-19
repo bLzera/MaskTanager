@@ -2,6 +2,8 @@
     max-width: 1440px!important;
     margin: 0 auto!important;
     position: relative;
+    background: #FFF;
+    box-shadow: -12px 0 24px -16px rgba(0, 0, 0, 0.25), /* esquerda */ 12px 0 24px -16px rgba(0, 0, 0, 0.25); /* direita */
 }
 
 @media screen and (max-width: 1366px){

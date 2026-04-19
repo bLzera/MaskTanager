@@ -5,6 +5,7 @@ import { ModalWrapper } from '../util/ModalWrapper';
 import { getTask, editTask, deleteTask, addTask } from '../../service/taskService';
 import { useEffect, useState } from 'react';
 import { SquarePlus } from 'lucide-react';
+import { WidgetTitle } from '../util/WidgetTitle';
 import type { Task } from '../../types/Task';
 import styles from './TaskWidget.module.css';
 
@@ -91,28 +92,31 @@ export const TaskWidget = () => {
     }
 
     return (
-        <>
-            <div className={styles.TaskWidget}>
-                <div className={styles.SortContainer}>
-                    <SortList<sortKey> 
-                        sortType={sortBy}  
-                        onSort={handleSortTasks}
-                        options={[
-                            {key: 'none', label: 'Sem ordenação'},
-                            {key: 'id', label: 'ID'},
-                            {key: 'status', label: 'Status'},
-                            {key: 'titulo', label: 'Título'},
-                        ]}
-                    />
+        <div className={styles.TaskWidget}>
+            <div className={styles.TitleOptionsContainer}>
+                <WidgetTitle nome="Minhas Tasks"/>
+                <div className={styles.OptionsContainer}>
+                    <div className={styles.SortContainer}>
+                        <SortList<sortKey> 
+                            sortType={sortBy}  
+                            onSort={handleSortTasks}
+                            options={[
+                                {key: 'none', label: 'Sem ordenação'},
+                                {key: 'id', label: 'ID'},
+                                {key: 'status', label: 'Status'},
+                                {key: 'titulo', label: 'Título'},
+                            ]}
+                        />
+                    </div>
+                    <button className={`${styles.TaskAdd} btn btn-primary`} onClick={() => {setTaskAdd(true); setOpenModal(true)}}>Adicionar task <SquarePlus size={16} color={'black'} strokeWidth={3}/></button>
                 </div>
-                <TaskList tasks={sortedTasks ? sortedTasks : tasks} onSave={handleSave} onDelete={handleDelete}/>
-                <button className={`${styles.TaskAdd} btn btn-primary`} onClick={() => {setTaskAdd(true); setOpenModal(true)}}>Adicionar task <SquarePlus size={16} color={'black'} strokeWidth={3}/></button>            
-                <ModalWrapper isOpen={openModal} onClickModal={handleCloseModal}>
-                    {taskAdd && 
-                        <TaskAdd onClose={handleCloseModal} onAdd={handleAdd}/>
-                    }            
-                </ModalWrapper>
             </div>
-        </>
+            <TaskList tasks={sortedTasks ? sortedTasks : tasks} onSave={handleSave} onDelete={handleDelete}/>            
+            <ModalWrapper isOpen={openModal} onClickModal={handleCloseModal}>
+                {taskAdd && 
+                    <TaskAdd onClose={handleCloseModal} onAdd={handleAdd}/>
+                }            
+            </ModalWrapper>
+        </div>
     );
 }
